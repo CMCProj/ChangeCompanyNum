@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChangeCompanyNum"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="사업자등록번호 변경" Height="450" Width="800">
     <Grid>
-        <TextBox HorizontalAlignment="Center" Height="54" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="374" Margin="0,142,0,0"/>
-        <Button Content="변경" Click="ChangeBtnClick" HorizontalAlignment="Left" Height="29" Margin="475,277,0,0" VerticalAlignment="Top" Width="112"/>
-        <Button Content="업로드" Click="UproadBtnClick" HorizontalAlignment="Left" Height="29" Margin="475,0,0,0" VerticalAlignment="Center" Width="112"/>
+        <TextBox Name = "BidList" HorizontalAlignment="Center" Height="59" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="374" Margin="0,137,0,0"/>
+        <Button Name = "ConvertBtn" Content="변경" Click="ChangeBtnClick" HorizontalAlignment="Left" Height="29" Margin="475,277,0,0" VerticalAlignment="Top" Width="112"/>
+        <Button Name = "UploadBtn" Content="업로드" Click="UproadBtnClick" HorizontalAlignment="Left" Height="29" Margin="475,0,0,0" VerticalAlignment="Center" Width="112"/>
         <Label Content="사업자 등록 번호 변경" HorizontalAlignment="Center" Height="47" Margin="0,90,0,0" VerticalAlignment="Top" Width="374" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22"/>
-        <TextBox HorizontalAlignment="Left" Height="28" Margin="213,241,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="96"/>
-        <TextBox HorizontalAlignment="Left" Height="28" Margin="330,241,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="124"/>
+        <TextBox Name = "CompanyName" HorizontalAlignment="Left" Height="28" Margin="213,241,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="96"/>
+        <TextBox Name = "CompanyNum" HorizontalAlignment="Left" Height="28" Margin="330,241,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="124"/>
         <Label Content="회사 명" HorizontalAlignment="Left" Height="28" Margin="221,208,0,0" VerticalAlignment="Top" Width="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
         <Label Content="사업자등록번호" HorizontalAlignment="Left" Height="28" Margin="330,209,0,0" VerticalAlignment="Top" Width="124" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
 
