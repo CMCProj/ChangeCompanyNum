@@ -1,22 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ChangeCompanyNum
 {
@@ -60,7 +46,7 @@ namespace ChangeCompanyNum
                 // 파일 복사
                 using (FileStream SourceStream = File.Open(openFileDialog.FileName, FileMode.Open))
                 {
-                    using (FileStream DestinationStream = File.Create(copiedFilePath + "\\" + System.IO.Path.GetFileName(openFileDialog.FileName) + "_복사본"))
+                    using (FileStream DestinationStream = File.Create(copiedFilePath + "\\" + System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName) + "_복사본.BID"))
                     {
                         await SourceStream.CopyToAsync(DestinationStream);
                         file = DestinationStream;
@@ -68,7 +54,7 @@ namespace ChangeCompanyNum
                     }
                 }
 
-                Data.BidText = System.IO.Path.GetFileName(openFileDialog.FileName) + "_복사본";
+                Data.BidText = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName) + "_복사본.BID";
                 BidList.Text = Data.BidText;
                 Data.BidFile = file;
                 Data.IsConvert = false;
@@ -89,9 +75,31 @@ namespace ChangeCompanyNum
             }
             else
             {
+                if (CompanyNum.Text == string.Empty)
+                {
+                    DisplayDialog("사업자등록번호를 입력해주세요.", "Fail");
+                    return;
+                }
+                else if (CompanyNum.GetLineLength(0) != 10) // 입력한 사용자등록번호가 10자리가 아닐 때
+                {
+                    DisplayDialog("올바른 사용자등록번호를 입력해주세요.", "Fail");
+                    return;
+                }
+                else if (CompanyName.Text == string.Empty)
+                {
+                    DisplayDialog("회사명을 입력해주세요.", "Fail");
+                    return;
+                }
+                else
+                {
+                    Data.CompanyRegistrationName = CompanyName.Text;
+                    Data.CompanyRegistrationNum = CompanyNum.Text;
+                }
+
                 try
                 {
                     BidHandling.BidToXml();
+                    BidHandling.XmlToBid();
                 }
                 catch
                 {
@@ -102,6 +110,38 @@ namespace ChangeCompanyNum
                 Data.IsConvert = true;
                 DisplayDialog("회사 명 및 사업자 등록 번호를 변경했습니다.", "Success");
             }
+        }
+
+        private void CompanyName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox CompanyName = sender as TextBox;
+            int selectionStart = CompanyName.SelectionStart;
+            string result = string.Empty;
+            Data.CompanyRegistrationName = CompanyName.GetLineText(0);
+            foreach (char character in CompanyName.Text.ToCharArray())
+            {
+                result += character;
+            }
+            CompanyName.Text = result;
+            CompanyName.SelectionStart = selectionStart <= CompanyName.Text.Length ? selectionStart : CompanyName.Text.Length;
+        }
+
+        private void CompanyNum_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox CompanyNum = sender as TextBox;
+            CompanyNum.MaxLength = 10;
+            int selectionStart = CompanyNum.SelectionStart;
+            string result = string.Empty;
+            foreach (char character in CompanyNum.Text.ToCharArray())
+            {
+                if (char.IsDigit(character) || char.IsControl(character))
+                {
+                    result += character;
+
+                }
+            }
+            CompanyNum.Text = result;
+            CompanyNum.SelectionStart = selectionStart <= CompanyNum.Text.Length ? selectionStart : CompanyNum.Text.Length;
         }
     }
 }

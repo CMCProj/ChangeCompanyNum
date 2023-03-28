@@ -17,12 +17,17 @@ namespace ChangeCompanyNum
             string[] bidFile = Directory.GetFiles(copiedFolder, "*_복사본.BID");
             string myfile = bidFile[0];
             filename = Path.GetFileNameWithoutExtension(bidFile[0]);
+            if(File.Exists(filename + ".zip"))
+            {
+                File.Delete(filename + "zip");
+            }
+
             File.Move(myfile, Path.ChangeExtension(myfile, ".zip"));
 
-            ZipFile.ExtractToDirectory(Path.Combine(copiedFolder, filename + ".zip"), copiedFolder);
+            ZipFile.ExtractToDirectory(Path.Combine(copiedFolder, filename + ".zip"), copiedFolder, true);
             string[] files = Directory.GetFiles(copiedFolder, "*.BID");
-            innerFileName = files[0];
-            string text = File.ReadAllText(files[0]); // 텍스트 읽기
+            innerFileName = Path.GetFileName(files[1]);
+            string text = File.ReadAllText(files[1]); // 텍스트 읽기
             byte[] decodeValue = Convert.FromBase64String(text);  // base64 변환
             text = Encoding.UTF8.GetString(decodeValue);   // UTF-8로 디코딩
 
@@ -49,7 +54,7 @@ namespace ChangeCompanyNum
             }
             File.WriteAllText(Path.Combine(myPath, innerFileName), encodeValue);
 
-            string resultFileName = filename.Substring(0, 16) + ".zip";
+            string resultFileName = filename + ".zip";
 
             if (File.Exists(myPath + "\\" + resultFileName))    //기존 공내역파일명.zip은 삭제한다. (23.02.02)
             {
@@ -67,6 +72,16 @@ namespace ChangeCompanyNum
                 File.Delete(resultBidPath);
             }
             File.Move(Path.Combine(myPath, resultFileName), Path.ChangeExtension(Path.Combine(myPath, resultFileName), ".BID"));
+
+            if (File.Exists(myPath + "\\OutputDataFromBID.xml"))
+            {
+                File.Delete(myPath + "\\OutputDataFromBID.xml");
+            }
+
+            if (File.Exists(myPath + "\\" + innerFileName))
+            {
+                File.Delete(myPath + "\\" + innerFileName);
+            }
         }
     }   
 }

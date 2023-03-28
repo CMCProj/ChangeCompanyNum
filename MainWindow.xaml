@@ -7,14 +7,13 @@
         mc:Ignorable="d"
         Title="사업자등록번호 변경" Height="450" Width="800">
     <Grid>
-        <TextBox Name = "BidList" HorizontalAlignment="Center" Height="59" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="374" Margin="0,137,0,0"/>
-        <Button Name = "ConvertBtn" Content="변경" Click="ChangeBtnClick" HorizontalAlignment="Left" Height="29" Margin="475,277,0,0" VerticalAlignment="Top" Width="112"/>
-        <Button Name = "UploadBtn" Content="업로드" Click="UproadBtnClick" HorizontalAlignment="Left" Height="29" Margin="475,0,0,0" VerticalAlignment="Center" Width="112"/>
-        <Label Content="사업자 등록 번호 변경" HorizontalAlignment="Center" Height="47" Margin="0,90,0,0" VerticalAlignment="Top" Width="374" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22"/>
-        <TextBox Name = "CompanyName" HorizontalAlignment="Left" Height="28" Margin="213,241,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="96"/>
-        <TextBox Name = "CompanyNum" HorizontalAlignment="Left" Height="28" Margin="330,241,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="124"/>
-        <Label Content="회사 명" HorizontalAlignment="Left" Height="28" Margin="221,208,0,0" VerticalAlignment="Top" Width="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
-        <Label Content="사업자등록번호" HorizontalAlignment="Left" Height="28" Margin="330,209,0,0" VerticalAlignment="Top" Width="124" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
-
+        <TextBox Name = "BidList" HorizontalAlignment="Center" Height="59" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="374" Margin="0,114,0,0"/>
+        <Button Name = "ConvertBtn" Content="변경" Click="ChangeBtnClick" HorizontalAlignment="Left" Height="20" Margin="475,298,0,0" VerticalAlignment="Top" Width="112"/>
+        <Button Name = "UploadBtn" Content="업로드" Click="UproadBtnClick" HorizontalAlignment="Left" Height="24" Margin="475,180,0,0" VerticalAlignment="Top" Width="112"/>
+        <Label Content="사업자 등록 번호 변경" HorizontalAlignment="Center" Height="47" Margin="0,63,0,0" VerticalAlignment="Top" Width="374" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22"/>
+        <TextBox Name = "CompanyName" HorizontalAlignment="Left" Height="28" Margin="213,241,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" TextChanged ="CompanyName_TextChanged"/>
+        <TextBox Name = "CompanyNum" HorizontalAlignment="Left" Height="28" Margin="374,241,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142" TextChanged="CompanyNum_TextChanged"/>
+        <Label Content="회사 명" HorizontalAlignment="Left" Height="28" Margin="238,213,0,0" VerticalAlignment="Top" Width="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
+        <Label Content="사업자등록번호" HorizontalAlignment="Left" Height="28" Margin="383,213,0,0" VerticalAlignment="Top" Width="124" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
     </Grid>
 </Window>
