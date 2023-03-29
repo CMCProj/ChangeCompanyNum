@@ -26,8 +26,8 @@ namespace ChangeCompanyNum
 
             ZipFile.ExtractToDirectory(Path.Combine(copiedFolder, filename + ".zip"), copiedFolder, true);
             string[] files = Directory.GetFiles(copiedFolder, "*.BID");
-            innerFileName = Path.GetFileName(files[1]);
-            string text = File.ReadAllText(files[1]); // 텍스트 읽기
+            innerFileName = Path.GetFileName(files[0]);
+            string text = File.ReadAllText(files[0]); // 텍스트 읽기
             byte[] decodeValue = Convert.FromBase64String(text);  // base64 변환
             text = Encoding.UTF8.GetString(decodeValue);   // UTF-8로 디코딩
 
