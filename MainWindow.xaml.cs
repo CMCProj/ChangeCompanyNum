@@ -27,6 +27,7 @@ namespace ChangeCompanyNum
             MessageBox.Show(dialog, title, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        // 업로드 버튼 헨들러
         private async void UproadBtnClick(object sender, RoutedEventArgs e)
         {
             // 파일 탐색기 열기
@@ -40,10 +41,10 @@ namespace ChangeCompanyNum
                 // 복사 파일 저장 폴더 -> 바탕화면
                 string copiedFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); 
 
-                //업로드한 공내역 파일을 [AutoBID\\EmptyBid] 폴더에 복사한다. (23.02.02)
+                //업로드한 BID 파일을 바탕화면에 복사한다. (23.02.02)
                 FileStream file;
 
-                // 파일 복사
+                // 파일의 복사본 복사
                 using (FileStream SourceStream = File.Open(openFileDialog.FileName, FileMode.Open))
                 {
                     using (FileStream DestinationStream = File.Create(copiedFilePath + "\\" + System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName) + "_복사본.BID"))
@@ -54,12 +55,13 @@ namespace ChangeCompanyNum
                     }
                 }
 
+                // 복사본의 이름 저장
                 Data.BidText = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName) + "_복사본.BID";
                 BidList.Text = Data.BidText;
                 Data.BidFile = file;
                 Data.IsConvert = false;
             }
-            else
+            else // 업로드되지 않았다면
             {
                 DisplayDialog("파일을 업로드 해주세요.", "Error");
                 Data.BidFile = null;
@@ -67,15 +69,16 @@ namespace ChangeCompanyNum
             }
         }
 
+        // 변경 버튼 헨들러
         private void ChangeBtnClick(object sender, RoutedEventArgs e)
         {
-            if (Data.BidFile == null)
+            if (Data.BidFile == null)   // 업로드된 BID파일이 없다면
             {
                 DisplayDialog("BID파일을 업로드해주세요!", "Upload");
             }
             else
             {
-                if (CompanyNum.Text == string.Empty)
+                if (CompanyNum.Text == string.Empty)    // 사업자등록번호가 입력되지 않았다면
                 {
                     DisplayDialog("사업자등록번호를 입력해주세요.", "Fail");
                     return;
@@ -85,7 +88,7 @@ namespace ChangeCompanyNum
                     DisplayDialog("올바른 사용자등록번호를 입력해주세요.", "Fail");
                     return;
                 }
-                else if (CompanyName.Text == string.Empty)
+                else if (CompanyName.Text == string.Empty)  // 회사 명이 입력되지 않았다면
                 {
                     DisplayDialog("회사명을 입력해주세요.", "Fail");
                     return;
@@ -96,22 +99,24 @@ namespace ChangeCompanyNum
                     Data.CompanyRegistrationNum = CompanyNum.Text;
                 }
 
-                try
+                try    // BID 파일 회사 명, 사업자등록번호 변경
                 {
                     BidHandling.BidToXml();
                     BidHandling.XmlToBid();
                 }
-                catch
+                catch  // 도중 문제가 생겼을 경우
                 {
                     DisplayDialog("변경 도중 문제가 발생했습니다. BID파일을 다시 한 번 확인해주세요.", "Error");
                     return;
                 }
 
+                // 변경 완료
                 Data.IsConvert = true;
                 DisplayDialog("회사 명 및 사업자 등록 번호를 변경했습니다.", "Success");
             }
         }
 
+        // 회사 명 텍스트박스 헨들러
         private void CompanyName_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox CompanyName = sender as TextBox;
@@ -126,6 +131,7 @@ namespace ChangeCompanyNum
             CompanyName.SelectionStart = selectionStart <= CompanyName.Text.Length ? selectionStart : CompanyName.Text.Length;
         }
 
+        // 사업자등록번호 텍스트박스 헨들러
         private void CompanyNum_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox CompanyNum = sender as TextBox;

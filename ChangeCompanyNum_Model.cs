@@ -23,8 +23,8 @@ namespace ChangeCompanyNum
             {
                 if (bid.Name == "T1")
                 {
-                    bid.Element("C17").Value = Data.CompanyRegistrationNum;
-                    bid.Element("C18").Value = Data.CompanyRegistrationName;
+                    bid.Element("C17").Value = Data.CompanyRegistrationNum;      //사업자등록번호 변경
+                    bid.Element("C18").Value = Data.CompanyRegistrationName;     //회사 명 변경
                 }
             }
 
